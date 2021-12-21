@@ -173,7 +173,7 @@ Key Ideas :
 
 - [Concept and Data Drift](https://towardsdatascience.com/machine-learning-in-production-why-you-should-care-about-data-and-concept-drift-d96d0bc907fb)
 - [A Chat with Andrew on MLOps: From Model-centric to Data-centric AI](https://www.youtube.com/watch?v=06-AZXmwHjo)
-- [Monitoring ML Models](https://christophergs.com/machine learning/2020/03/14/how-to-monitor-machine-learning-models/)
+- [Monitoring ML Models](https://christophergs.com/machine%20learning/2020/03/14/how-to-monitor-machine-learning-models/)
 - Konstantinos, Katsiapis, Karmarkar, A., Altay, A., Zaks, A., Polyzotis, N., … Li, Z. (2020). Towards ML Engineering: A brief history of TensorFlow Extended (TFX). [http://arxiv.org/abs/2010.02013 ](http://arxiv.org/abs/2010.02013)
 - Paleyes, A., Urma, R.-G., & Lawrence, N. D. (2020). Challenges in deploying machine learning: A survey of case studies. http://arxiv.org/abs/2011.09926
 - [Data Collection and Quality Challenges in Deep Learning: A Data-Centric AI Perspective](https://arxiv.org/pdf/2112.06409.pdf)
