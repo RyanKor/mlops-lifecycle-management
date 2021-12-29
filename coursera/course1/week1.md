@@ -109,7 +109,7 @@
 
 ## Common Deployment Cases
 
-1. new product / capability]
+1. new product / capability
 2. Automate / assist with manual task
 3. Replace previous ML System
 
@@ -144,8 +144,11 @@ Key Ideas :
 3. **Shadow mode deployment**
 
 - ML 알고리즘을 이용하여 어떠한 output을 뽑아내고는 있지만, 특수한 이유로 그 output을 어떠한 의사결정에도 사용하지 않는 상황이라고 생각하면 될듯함
-
 - 다만 추후 해당 값을 모니터링함으로써 에러 분석 시 사용하거나 해당 output이 의사 결정에 사용시 도움이 된다는 판단이 내려지면 해당 output을 이용하면될듯
+
+
+
+4. Rolling deplotyment
 
 ## Monitoring
 

@@ -150,3 +150,29 @@ class_weights
   - 위의 4가지 사항들로 얼마나 개선시킬 수 있는지, 개선할 카테고리 값이 얼마나 자주 등장하는지, 그리고 카테고리 정확도 개선이 어느정도로 쉬운지, 카테고리 향상이 럴마나 중요한지 등을 우선순위에서 정하는 것이 좋다.
 
 ![image](https://user-images.githubusercontent.com/40455392/147071714-f0342ba0-eef2-492c-845e-7c5c5b88cce8.png)
+
+
+
+## Skewed Datasets
+
+
+
+
+
+
+
+## Reference
+
+If you wish to dive more deeply into the topics covered this week, feel free to check out these optional references. You won’t have to read these to complete this week’s practice quizzes. [Establishing a baseline](https://blog.ml.cmu.edu/2020/08/31/3-baselines/)
+
+[Error analysis](https://techcommunity.microsoft.com/t5/azure-ai/responsible-machine-learning-with-error-analysis/ba-p/2141774)
+
+[Experiment tracking](https://neptune.ai/blog/ml-experiment-tracking)
+
+
+
+**Papers**
+
+Brundage, M., Avin, S., Wang, J., Belfield, H., Krueger, G., Hadfield, G., … Anderljung, M. (n.d.). Toward trustworthy AI development: Mechanisms for supporting verifiable claims∗. Retrieved May 7, 2021http://arxiv.org/abs/2004.07213v2
+
+Nakkiran, P., Kaplun, G., Bansal, Y., Yang, T., Barak, B., & Sutskever, I. (2019). Deep double descent: Where bigger models and more data hurt. Retrieved from http://arxiv.org/abs/1912.02292
