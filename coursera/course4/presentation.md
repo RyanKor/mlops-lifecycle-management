@@ -289,3 +289,117 @@ TFMA 파이프라인의 주요 컴포넌트 4개
 
 ## 15. Model Remediation
 
+- 14번 내용에서 모델의 견고함에 대해 얘기했지만, `견고하게 개선하는` 방법에 대해 얘기를 안했기 때문에 이에 대해 다룬다.
+
+![image](https://user-images.githubusercontent.com/40455392/150044590-a9f71762-3ade-4bfa-b01a-427a29ebacbc.png)
+
+- Remediation(직역하면 교정) 을 수행하는 방법
+  - Data Augmentation
+    - 훈련 데이터 합성
+    - 클래스별 데이터 불균형 해소
+  - Interpretable and explainable ML
+    - 모델의 신경망의 black box를 tool을 사용해 개선
+    - 데이터가 어떻게 변화하는지 이해하기
+  - Model Editing
+    - 사례로 Decision Tree가 있다.
+    - 성능 개선과 모델 견고성 향상을 위해 기존 모델을 수정 (Tweak)할 수 있다.
+  - Model Assertions
+    - 모델 결과를 위해 비즈니스 필드에서 세워놓은 규칙을 점검하거나 단순 분류 작업 등을 시행해서 결과를 누군가에게 전달하기 전에 모델이 만든 예측 값을 무시하거나 변경하는 것이 가능하다.
+    - 예를 들면 누군가의 나이는 절대 음수가 되면 안되게 만들어야 하거나 (나이가 음수가 될 수 없으므로) 신용 한도 측정을 해야하는 경우 신용 한도 최대를 넘어서는 값을 예측하면 안된다.
+  - Discrimination Remediation
+    - 모델 내의 차별이나 편견을 없애는 과정
+    - 사실 차별을 없애는 제일 좋은 방법은 모델 학습을 위한 다양한 데이터의 클래스가 균일하게 있으면 발생하지 않는 상황임
+    - Feature Selection을 수행할 때, sampling & reweighting 등을 적절히 사용하면 마찬가지로 모델 내 차별을 해소할 수 있음
+    - 하이퍼 매개 변수 및 의사 결정 차단 임계값을 선택할 때는 Fairness Metric을 고려해야 합니다.
+  - Model monitoring
+    - 정기적인 간격으로 모델 디버깅 수행
+    - 정확도, 공정성, 보안 등의 이슈 검사
+  - Anomaly Detection
+    - 공격 위험이 높은 예외 사항들을 탐지
+    - 새롭게 유입되는 데이터의 통합 제한 사항을 다양한 툴과 소프트웨어, 그리고 통계 데이터를 활용해 강화한다.
+
+
+
+## 16. Fairness
+
+- 모델을 Fair하게 만드는 것을 몇몇 라이브러리를 사용함으로써 가능하게 한다.
+- 모델을 fair하게 만든다는 것이 무엇을 시사하는가?
+  - 다른 종류의 고객이 모델을 이용하거나
+  - 모델을 이용하는 다른 상황에서도 동일한 퍼포먼스를 내게끔 하는 것
+- 모델 성능 분석을 통해 점검할 것은 우리가 구성한 모델이 다른 시나리오에서도 동일하게 작동하는지 여부다.
+- 점검 툴 : Fairness indicators (TF팀이 개발)
+  - 오픈소스이고, 어떤 데이터 사이즈이던 확장성이 높으며, TFMA 위에 빌드할 수 있도록 설계
+  - Classification 모델에 대해 일반적으로 식별되는 Fairness Metric 계산
+  - 다른 모델에 대한 subgroup 성능을 비교
+  - Remediation은 사용할 수 없음
+- 전체 데이터 뿐만 아니라 특정 클래스 데이터에 대해서도 fairness를 수행해야함
+- 특정 metric은 다른 값보다 성능이 좋게 나올 수도 있음
+
+- Fairness는 언제 고려되어야 하는가? (Aspects to Consider)
+  - 다양한 상황과 유저 타입
+  - 특정 도메인 전문가의 도움이 필요할 때
+  - Data Slicing을 다양한 범위에서 사용해야할 때 (widely and widely)
+- General Guideline
+  - 모든 slice of data에 metric 성능 측정
+  - 다양한 threshold를 설정해 metric 평가
+  - 결정 경계에서 멀리 떨어져 있지 않은 예측의 경우 레이블이 예측되는 비율을 보고하는 것을 고려해야 합니다.
+
+## 17. Measuring Fairness
+
+- 다양한 Fairness Metric을 확인해보자.
+- Positive / Negative Rate
+  - 데이터의 긍정/부정 분류 비율
+  - ground truth 값에 독립적
+- the ratios of true positive & false negative
+  - TPR : 맞는 데이터를 맞다고 예측한 비율
+  - FNR : 맞는 것을 틀렸다고 예측한 비율 (양성을 음성으로 예측)
+  - 위의 TPR & FNR은 데이터의 그룹별 양성 비율을 탐색하는 것이 의미있다고 판단할 때 이용
+  - TNR : 틀린 것을 틀렸다고 예측한 비율
+  - FPR : 틀린 것을 맞다고 예측한 비율
+  - TNR & FPR은 틀린 것을 맞다고 하는 상황이라, TPR & FNR보다 심각하게 받아들여야함
+- accuracy & area under the curve (AUC)
+  - 정확도는 정확하게 몇 개를 맞췄는지를 따지는 비율
+  - AUC는 샘플 수에 독립적인 가중치와 동일하게 각 클래스 별로 정확하게 레이블이 되어 있는지 비율을 따지는 값
+    - 즉, entire dataset에 대한 것 뿐만 아니라 slicing 데이터 값도 따지는 과정
+- 고려해야할 상황
+  - 두 집단 사이의 명확한 metric 차이가 존재할 경우
+  - Good fairness indicator가 항상 model이 fair하다는 뜻을 내포하는 것이 아니다.
+  - 개별 집단 전반에 걸쳐 fairness evaludation이 진행되어야 하고, 모델 뱊포후에도 진행이 되어야한다.
+  - 훈련 데이터, 다른 모델의 입력 또는 설계 자체와 같은 모델의 다양한 측면이 변화함에 따라 공정성 메트릭스도 변화할 가능성이 높다.
+  - 공정성 평가는 적대적인 테스트를 대체하기 위한 것이 아니라, 드물게 표적화된 예에 대한 추가적인 방어를 제공하기 위한 것
+
+## 18. Continuous evaluation and monitoring
+
+- Training Data는 우리가 살고 있는 세상의 특정 시점을 담은 snapshot에 불과함
+  - git commit도 snapshot을 찍는 것도 전체 프로젝트의 일부분을 기록하는 것
+- 데이터는 시간에 걸쳐 빠르게 변화한다.
+- 모델은 시간이 지남에 따라 스스로 개선되지 않는다.
+- Concept Drift : 예측 퀄리티의 감소
+- Concept Emergence : 이전 데이터 셋에 없던 새로운 타입의 데이터 분포 발생
+- Data Shift 타입
+  - Covariate shift
+  - prior probability shift
+
+![image](https://user-images.githubusercontent.com/40455392/150049904-fa34e250-2265-4064-9f00-0217bd79a156.png)
+
+- Drift의 Supervised 예측 3가지 방법
+
+  - Statistical Process Control
+  - Sequencial Analysis
+  - Error Distribution Monitoring
+
+  - 그러나 Supervised Technique는 label이 필요하다는 단점이 존재
+    - 언제나 모델 label을 구성하는 것은 병목현상처럼 느껴짐
+
+- Unsupervised 예측 3가지 방법
+
+  - Clustering/novelty detection
+  - Feature distribution monitoring
+
+  ![image](https://user-images.githubusercontent.com/40455392/150051502-8bc8bd31-b7a2-445b-9f11-674e5fdd425d.png)
+
+  - Model-dependent monitoring
+
+- 사실 구글에서는 AI Continuous Evalution 툴을 제공하고 있다.
+
+  - 데이터 라벨링 및 모델 재훈련 등 서비스를 제공하고 있으니, 금전적 여유가 된다면 aws, gcp, azure 등에서 제공하는 클라우드 서비스를 이용하는 것도 좋을 것이다.
