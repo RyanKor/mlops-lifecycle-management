@@ -24,7 +24,7 @@
 - 모델의 성능이 향상될 여지가 있는지? (Is there scope for improvement?)
 - 데이터가 미래에 변화될 가능성이 있는지? (Can the data change in future?)
   - 대표적으로 Fashion CV 분야
-- 데이터셋이 생성된 이후로 데이터가 데이터셋을 변화시킬 여지가 있는지? (Has the data changed  since you created your training dataset?)
+- 데이터셋이 생성된 이후로 새롭게 만들어진 데이터가 데이터셋을 변화시킬 여지가 있는지? (Has the data changed  since you created your training dataset?)
 
 
 
